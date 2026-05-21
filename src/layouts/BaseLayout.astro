@@ -1,0 +1,39 @@
+---
+// src/layouts/BaseLayout.astro
+// Layout base que envuelve TODAS las páginas del sitio.
+// Aquí van metadatos, estilos globales, fuentes, modo oscuro, etc.
+
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: "es" | "en";
+}
+
+const {
+  title,
+  description = "Investigación en seguridad aplicada a motocicletas.",
+  lang = "es",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body
+    class="min-h-screen bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100"
+  >
+    <slot />
+  </body>
+</html>
