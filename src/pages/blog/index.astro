@@ -32,7 +32,7 @@ const posts = (await getCollection("blog-es"))
       <ul class="space-y-10">
         {posts.map((post) => (
           <li class="border-b border-zinc-800 pb-10 last:border-0">
-            <a href={`/blog/${post.slug}`} class="group block">
+            <a href={`/blog/${post.id}`} class="group block">
               <p
                 class="text-xs text-zinc-600 mb-2"
                 style="font-family: var(--font-mono);"
