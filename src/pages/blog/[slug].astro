@@ -1,0 +1,90 @@
+---
+// src/pages/blog/[slug].astro
+// Página dinámica: un artículo en español.
+
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog-es");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateStr = post.data.publishedAt.toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} — motobrief`}
+  description={post.data.description}
+  lang="es"
+>
+  <article class="mx-auto max-w-2xl px-6 py-16">
+
+    <!-- Metadata header -->
+    <header class="mb-12">
+      <p
+        class="text-xs text-zinc-600 mb-4"
+        style="font-family: var(--font-mono);"
+      >
+        {dateStr}
+        {post.data.target && <span class="ml-3 text-zinc-700">· {post.data.target}</span>}
+        {post.data.draft && (
+          <span class="ml-3 text-amber-600 border border-amber-900 rounded px-1.5 py-0.5">
+            borrador
+          </span>
+        )}
+      </p>
+
+      <h1
+        class="text-3xl md:text-4xl font-semibold tracking-tight text-zinc-100 leading-tight mb-4"
+        style="font-family: var(--font-sans);"
+      >
+        {post.data.title}
+      </h1>
+
+      <p class="text-base text-zinc-400 leading-relaxed mb-6">
+        {post.data.description}
+      </p>
+
+      {post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <span
+              class="text-xs text-zinc-600 border border-zinc-800 rounded px-2 py-0.5"
+              style="font-family: var(--font-mono);"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Contenido del artículo -->
+    <div class="prose">
+      <Content />
+    </div>
+
+    <!-- Footer del artículo -->
+    <footer class="mt-16 pt-8 border-t border-zinc-800">
+      <a
+        href="/blog"
+        class="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+        style="font-family: var(--font-mono);"
+      >
+        ← Volver a análisis
+      </a>
+    </footer>
+
+  </article>
+</BaseLayout>

@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About — motobrief"
+  description="Who is behind motobrief and what this project is about."
+  lang="en"
+>
+  <article class="mx-auto max-w-2xl px-6 py-16">
+
+    <header class="mb-12">
+      <p
+        class="text-xs text-zinc-600 mb-4"
+        style="font-family: var(--font-mono);"
+      >
+        about the project
+      </p>
+      <h1
+        class="text-3xl font-semibold tracking-tight text-zinc-100"
+        style="font-family: var(--font-sans);"
+      >
+        About
+      </h1>
+    </header>
+
+    <div class="prose">
+
+      <h2>Who I am</h2>
+
+      <p>
+        I'm Guillermo, a software developer (DAM degree) with a cybersecurity
+        specialization, starting a Computer Engineering degree in September.
+        I'm 22, based in Spain.
+      </p>
+
+      <p>
+        My professional goal is to work in offensive security and vulnerability
+        research. motobrief is the project where I turn that goal into concrete,
+        documented work.
+      </p>
+
+      <h2>What motobrief is</h2>
+
+      <p>
+        motobrief is a technical security research blog focused on the digital
+        ecosystem of modern motorcycles. It's not a motorcycle blog in the
+        traditional sense — no reviews, no horsepower comparisons.
+      </p>
+
+      <p>What I publish here are technical analyses on:</p>
+
+      <ul>
+        <li>
+          <strong>Manufacturer apps</strong> — traffic analysis, decompilation,
+          endpoint mapping, data sent to servers.
+        </li>
+        <li>
+          <strong>Connected devices</strong> — GPS anti-theft, Bluetooth
+          trackers, OBD dongles.
+        </li>
+        <li>
+          <strong>Data privacy</strong> — what data apps collect, who they share
+          it with, GDPR compliance.
+        </li>
+      </ul>
+
+      <p>
+        All research is conducted client-side only — no attacks against servers
+        I don't own. Any significant finding goes through responsible disclosure.
+      </p>
+
+      <h2>Why this exists</h2>
+
+      <p>
+        The security ecosystem of modern motorcycles is largely unstudied
+        compared to cars. There's serious CAN bus research for automobiles, but
+        almost nothing equivalent for motorcycles. That's an interesting gap.
+      </p>
+
+      <p>
+        I also want to build a technical portfolio that demonstrates what I can
+        actually do, not just what I've studied.
+      </p>
+
+      <h2>Methodology & tools</h2>
+
+      <p>
+        Typical stack for analyses: <code>mitmproxy</code>, <code>jadx</code>,
+        <code>apktool</code>, <code>Frida</code>, <code>Burp Suite</code>.
+        Methodological reference:
+        <a href="https://mas.owasp.org/MASTG/" target="_blank" rel="noopener noreferrer">
+          OWASP MASTG
+        </a>.
+      </p>
+
+      <hr />
+
+      <h2>Contact</h2>
+
+      <p>
+        Questions about an analysis, want to collaborate, or are you a
+        manufacturer who wants to discuss a finding before I publish it:
+      </p>
+
+      <ul>
+        <li>
+          Email:
+          <a href="mailto:contacto@motobrief.es">contacto@motobrief.es</a>
+        </li>
+        <li>
+          GitHub:
+          <a href="https://github.com/Guilleee50" target="_blank" rel="noopener noreferrer">
+            github.com/Guilleee50
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        PGP accepted for responsible disclosure. Key available on request.
+      </p>
+
+    </div>
+
+  </article>
+</BaseLayout>

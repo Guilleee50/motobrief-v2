@@ -1,8 +1,10 @@
 ---
 // src/layouts/BaseLayout.astro
 // Layout base que envuelve TODAS las páginas del sitio.
-// Aquí van metadatos, estilos globales, fuentes, modo oscuro, etc.
 
+import { Font } from "astro:assets";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -29,11 +31,19 @@ const {
     <meta name="description" content={description} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload fuentes (Astro las optimiza y sirve localmente) -->
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-mono" preload />
   </head>
 
-  <body
-    class="min-h-screen bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100"
-  >
-    <slot />
+  <body class="min-h-dvh flex flex-col antialiased">
+    <Header lang={lang} />
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
   </body>
 </html>

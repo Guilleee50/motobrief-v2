@@ -1,0 +1,73 @@
+---
+// src/pages/en/blog/index.astro
+// Research article list — English version.
+
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog-en"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Research — motobrief"
+  description="Technical security research on the digital ecosystem of modern motorcycles."
+  lang="en"
+>
+  <section class="mx-auto max-w-2xl px-6 py-16">
+
+    <h1
+      class="text-2xl font-semibold tracking-tight text-zinc-100 mb-10"
+      style="font-family: var(--font-sans);"
+    >
+      Research
+    </h1>
+
+    {posts.length === 0 ? (
+      <p class="text-zinc-500 text-sm" style="font-family: var(--font-mono);">
+        Coming soon — first analysis in progress.
+      </p>
+    ) : (
+      <ul class="space-y-10">
+        {posts.map((post) => (
+          <li class="border-b border-zinc-800 pb-10 last:border-0">
+            <a href={`/en/blog/${post.slug}`} class="group block">
+              <p
+                class="text-xs text-zinc-600 mb-2"
+                style="font-family: var(--font-mono);"
+              >
+                {post.data.publishedAt.toISOString().split("T")[0]}
+                {post.data.target && (
+                  <span class="ml-3 text-zinc-700">· {post.data.target}</span>
+                )}
+              </p>
+              <h2
+                class="text-lg font-medium text-zinc-100 group-hover:text-white transition-colors leading-snug mb-2"
+                style="font-family: var(--font-sans);"
+              >
+                {post.data.title}
+              </h2>
+              <p class="text-sm text-zinc-500 leading-relaxed">
+                {post.data.description}
+              </p>
+              {post.data.tags.length > 0 && (
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {post.data.tags.map((tag) => (
+                    <span
+                      class="text-xs text-zinc-700 border border-zinc-800 rounded px-2 py-0.5"
+                      style="font-family: var(--font-mono);"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+  </section>
+</BaseLayout>

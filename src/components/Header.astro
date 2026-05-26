@@ -1,0 +1,64 @@
+---
+// src/components/Header.astro
+// Header mínimo: wordmark izquierda + nav derecha.
+// El lang activo se pasa desde el layout para highlight del idioma.
+
+interface Props {
+  lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+
+const nav = [
+  { label: lang === "es" ? "Inicio" : "Home",    href: lang === "es" ? "/"       : "/en"       },
+  { label: lang === "es" ? "Análisis" : "Research", href: lang === "es" ? "/blog"   : "/en/blog"  },
+  { label: lang === "es" ? "Sobre mí" : "About",  href: lang === "es" ? "/about"  : "/en/about" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-50">
+  <div class="mx-auto max-w-2xl px-6 h-14 flex items-center justify-between">
+
+    <!-- Wordmark -->
+    <a
+      href={lang === "es" ? "/" : "/en"}
+      class="font-semibold text-zinc-100 tracking-tight text-sm hover:text-white transition-colors"
+      style="font-family: var(--font-sans);"
+    >
+      motobrief
+    </a>
+
+    <!-- Nav -->
+    <nav class="flex items-center gap-6">
+      {nav.map(({ label, href }) => {
+        const isActive = currentPath === href || (href !== "/" && href !== "/en" && currentPath.startsWith(href));
+        return (
+          <a
+            href={href}
+            class:list={[
+              "text-xs font-medium tracking-wide uppercase transition-colors",
+              isActive
+                ? "text-zinc-100"
+                : "text-zinc-500 hover:text-zinc-300"
+            ]}
+            style="font-family: var(--font-sans); letter-spacing: 0.06em;"
+          >
+            {label}
+          </a>
+        );
+      })}
+
+      <!-- Switch idioma -->
+      <a
+        href={lang === "es" ? "/en" : "/"}
+        class="text-xs text-zinc-600 hover:text-zinc-400 transition-colors border border-zinc-800 rounded px-2 py-0.5"
+        style="font-family: var(--font-mono); font-size: 0.7rem;"
+      >
+        {lang === "es" ? "EN" : "ES"}
+      </a>
+    </nav>
+
+  </div>
+</header>
